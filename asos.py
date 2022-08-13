@@ -23,7 +23,7 @@ link = 'https://my.asos.com/identity/register?lang=en-GB&store=COM&country=GB&ke
 file = open('account.txt','w')
 password = input("Enter password: ")
 catchall = input("Enter catchall (Along with @ symbol, e.g. @table.com):")
-s = Service(r"C:\Users\[User]\Desktop\asos\chromedriver\chromedriver.exe")
+s = Service(r"C:\Users\[User]\Desktop\asos\chromedriver.exe")
 options = Options()
 #options = webdriver.ChromeOptions()
 options.headless
