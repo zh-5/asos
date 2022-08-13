@@ -21,32 +21,13 @@ numbers = ['1','2','3','4','5','6','7','8','9','0']
 link = 'https://my.asos.com/identity/register?lang=en-GB&store=COM&country=GB&keyStoreDataversion=dup0qtf-35&returnUrl=https%3A%2F%2Fwww.asos.com%2Fmen%2F'
 
 file = open('account.txt','w')
-
-
-s = Service("C:\\Users\\[User]\Desktop\\drivre\\chromedriver.exe")
+password = input("Enter password: ")
+catchall = input("Enter catchall (Along with @ symbol, e.g. @table.com):")
+s = Service(r"C:\Users\[User]\Desktop\asos\chromedriver\chromedriver.exe")
 options = Options()
 #options = webdriver.ChromeOptions()
 options.headless
 driver = webdriver.Chrome(service=s,options=options)
-
-def delete_cache():
-    driver.execute_script("window.open('');")
-    time.sleep(2)
-    driver.switch_to.window(driver.window_handles[-1])
-    time.sleep(2)
-    driver.get('chrome://settings/clearBrowserData') # for old chromedriver versions use cleardriverData
-    time.sleep(2)
-    actions = ActionChains(driver) 
-    actions.send_keys(Keys.TAB * 3 + Keys.DOWN * 3) # send right combination
-    actions.perform()
-    time.sleep(2)
-    actions = ActionChains(driver) 
-    actions.send_keys(Keys.TAB * 4 + Keys.ENTER) # confirm
-    actions.perform()
-    time.sleep(5) # wait some time to finish
-    driver.close() # close this tab
-    driver.switch_to.window(driver.window_handles[0]) # switch back
-delete_cache() #cache clear
 
 driver.get(link)
 
@@ -56,8 +37,8 @@ lName = random.choice(names)
 
 nLength = 2
 num = ''.join(random.choice(numbers) for i in range(nLength))
-email = str(fName)+str(lName)+str(num)+'[Catchall here]'
-password = '[Password entered here]'
+email = str(fName)+str(lName)+str(num)+catchall
+passw = password
 
 select1 = Select(driver.find_element(By.XPATH, '//*[@id="BirthDay"]'))
 select2 = Select(driver.find_element(By.XPATH, '//*[@id="BirthMonth"]'))
@@ -67,7 +48,7 @@ select3 = Select(driver.find_element(By.XPATH, '//*[@id="BirthYear"]'))
 driver.find_element(By.XPATH, '//*[@id="Email"]').send_keys(email)
 driver.find_element(By.XPATH, '//*[@id="FirstName"]').send_keys(fName)
 driver.find_element(By.XPATH, '//*[@id="LastName"]').send_keys(lName)
-driver.find_element(By.XPATH, '//*[@id="Password"]').send_keys(password)
+driver.find_element(By.XPATH, '//*[@id="Password"]').send_keys(passw)
 select1.select_by_visible_text('1')
 select2.select_by_visible_text('January')
 select3.select_by_visible_text('2000')
